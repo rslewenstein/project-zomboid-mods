@@ -1,0 +1,31 @@
+module Base
+{
+    item Pacoca
+    {
+        DisplayName = Paçoca,
+        DisplayCategory = Food,
+        Type = Food,
+
+        Weight = 0.1,
+        HungerChange = -15,
+        ThirstChange = -5,
+
+        Calories = 300,
+        Carbohydrates = 30,
+        Lipids = 18,
+        Proteins = 6,
+
+        DaysFresh = 9999,
+        DaysTotallyRotten = 9999,
+
+        Icon = Pacoca,
+
+        EatType = Normal,
+        CantBeFrozen = TRUE,
+        BadInMicrowave = TRUE,
+
+        UnhappyChange = -15,
+        BoredomChange = -10
+	StressChange = -10
+    }
+}
