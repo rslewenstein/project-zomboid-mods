@@ -1,4 +1,4 @@
-local SAVE_INTERVAL = 60
+local SAVE_INTERVAL = 600
 local lastSave = 0
 
 
