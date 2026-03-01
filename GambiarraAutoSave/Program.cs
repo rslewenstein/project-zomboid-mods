@@ -20,7 +20,7 @@ class GambiarraAutoSave
                     Console.WriteLine("Número de registros de AUTOSAVE: " + numLines);
                     Console.WriteLine("Backup realizado com sucesso!");
                 }
-                Thread.Sleep(1000); //300000 = 5 minutos
+                Thread.Sleep(GetThreadSleepTime());
             }
         }  
     }
@@ -67,6 +67,21 @@ class GambiarraAutoSave
         {
             Console.WriteLine($"Error reading configuration: {ex.Message}");
             return string.Empty;
+        }
+    }
+
+    private static int GetThreadSleepTime()
+    {
+        try
+        {
+            string json = File.ReadAllText("configs.json");
+            var config = System.Text.Json.JsonSerializer.Deserialize<Config>(json);
+            return config?.ThreadSleepTime ?? 10000;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading configuration: {ex.Message}");
+            return 10000;
         }
     }
 
@@ -142,7 +157,6 @@ class GambiarraAutoSave
             Console.WriteLine($"Error copying directory: {ex.Message}");
         }
     }
-
 }
 
 class Config
@@ -150,4 +164,5 @@ class Config
     public string? LogPath { get; set; }
     public string? SavePath { get; set; }
     public string? BackupPath { get; set; }
+    public int ThreadSleepTime { get; set; }
 }

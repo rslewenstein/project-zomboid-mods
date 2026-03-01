@@ -1,0 +1,6 @@
+{
+    "LogPath": "C:\\Users\\%USERNAME%\\Zomboid\\Logs",
+    "SavePath": "C:\\Users\\%USERNAME%\\Zomboid\\Saves",
+    "BackupPath": "C:\\Users\\%USERNAME%\\Zomboid\\BKP",
+    "ThreadSleepTime": 10000
+}
