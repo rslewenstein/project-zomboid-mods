@@ -5,14 +5,14 @@ class GambiarraAutoSave
     static void Main(string[] args)
     {
         int lastPosition = 0;
-        string path = @"C:\Users\" + NameUser() + @"\Zomboid\Logs";
-        var filename = GetFileName(path);
+        string logPath = GetLogPath();
+        var filename = GetFileName(logPath);
 
-        if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(filename))
+        if (!string.IsNullOrEmpty(logPath) && !string.IsNullOrEmpty(filename))
         {
             while (true)
             {
-                var numLines = ReadFile(path, filename);
+                var numLines = ReadFile(logPath, filename);
                 if (numLines > lastPosition)
                 {
                     CopyDirectory("C:\\Users\\" + NameUser() + "\\Zomboid\\Saves", @"C:\\Users\\" + NameUser() + "\\Zomboid\\BKP\\");
@@ -23,6 +23,21 @@ class GambiarraAutoSave
                 Thread.Sleep(1000); //300000 = 5 minutos
             }
         }  
+    }
+
+    private static string GetLogPath()
+    {
+        try
+        {
+            string json = File.ReadAllText("configs.json");
+            var config = System.Text.Json.JsonSerializer.Deserialize<Config>(json);
+            return config?.LogPath?.Replace("%USERNAME%", NameUser()) ?? string.Empty;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading configuration: {ex.Message}");
+            return string.Empty;
+        }
     }
 
     private static string NameUser()
@@ -98,4 +113,9 @@ class GambiarraAutoSave
         }
     }
 
+}
+
+class Config
+{
+    public string? LogPath { get; set; }
 }
