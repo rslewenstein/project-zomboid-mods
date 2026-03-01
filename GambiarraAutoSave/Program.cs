@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Dynamic;
+﻿using System.IO.Compression;
 
 class GambiarraAutoSave
 {
@@ -11,9 +10,13 @@ class GambiarraAutoSave
 
         if (!string.IsNullOrEmpty(path) || !string.IsNullOrEmpty(filename))
         {
-            ReadFile(path, filename);
-        }
-        
+            while (true)
+            {
+                ReadFile(path, filename);
+                CopyDirectory("C:\\Users\\RLewenstein\\Zomboid\\Saves", @"C:\\Users\\RLewenstein\\Zomboid\\BKP\\");
+                Thread.Sleep(300000); // 5 minutos
+            }
+        }  
     }
 
     private static string NameUser()
@@ -45,6 +48,37 @@ class GambiarraAutoSave
             .Where(line => line.Contains("[AUTOSAVE]"))
             .ToList()
             .ForEach(Console.WriteLine);
+    }
+
+    private static void CopyDirectory(string sourceDir, string destinationDir)
+    {
+        try
+        {
+            if (!Directory.Exists(sourceDir))
+            {
+                Console.WriteLine($"Source directory '{sourceDir}' does not exist.");
+                return;
+            }
+
+            Directory.CreateDirectory(destinationDir);
+
+            foreach (var file in Directory.GetFiles(sourceDir))
+            {
+                var destFile = Path.Combine(destinationDir, Path.GetFileName(file));
+                File.Copy(file, destFile, true);
+            }
+
+            foreach (var dir in Directory.GetDirectories(sourceDir))
+            {
+                // cria zip apenas uma vez
+                string zipPath = destinationDir + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".zip";
+                ZipFile.CreateFromDirectory(destinationDir, zipPath);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error copying directory: {ex.Message}");
+        }
     }
 
 }
