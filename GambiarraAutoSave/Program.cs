@@ -1,20 +1,24 @@
-﻿using System.IO.Compression;
+﻿﻿using System.IO.Compression;
 
 class GambiarraAutoSave
 {
     static void Main(string[] args)
     {
-        string path = @"C:\Users\RLewenstein\Zomboid\Logs";
-        Console.WriteLine(NameUser());
+        int lastPosition = 0;
+        string path = @"C:\Users\" + NameUser() + @"\Zomboid\Logs";
         var filename = GetFileName(path);
 
-        if (!string.IsNullOrEmpty(path) || !string.IsNullOrEmpty(filename))
+        if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(filename))
         {
             while (true)
             {
-                ReadFile(path, filename);
-                CopyDirectory("C:\\Users\\RLewenstein\\Zomboid\\Saves", @"C:\\Users\\RLewenstein\\Zomboid\\BKP\\");
-                Thread.Sleep(300000); // 5 minutos
+                var numLines = ReadFile(path, filename);
+                if (numLines > lastPosition)
+                {
+                    CopyDirectory("C:\\Users\\" + NameUser() + "\\Zomboid\\Saves", @"C:\\Users\\" + NameUser() + "\\Zomboid\\BKP\\");
+                    lastPosition = numLines;
+                }
+                Thread.Sleep(1000); //300000 = 5 minutos
             }
         }  
     }
@@ -42,12 +46,25 @@ class GambiarraAutoSave
         }
     }
 
-    private static void ReadFile(string path, string? filename)
+    private static int ReadFile(string path, string filename)
     {
-        File.ReadLines(Path.Combine(path, filename))
-            .Where(line => line.Contains("[AUTOSAVE]"))
-            .ToList()
-            .ForEach(Console.WriteLine);
+        string fullPath = Path.Combine(path, filename);
+        int count = 0;
+
+        using var fs = new FileStream(fullPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        using var reader = new StreamReader(fs);
+
+        string? line;
+        while ((line = reader.ReadLine()) != null)
+        {
+            if (line.Contains("[AUTOSAVE]"))
+            {
+                Console.WriteLine(line);
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private static void CopyDirectory(string sourceDir, string destinationDir)
@@ -70,9 +87,8 @@ class GambiarraAutoSave
 
             foreach (var dir in Directory.GetDirectories(sourceDir))
             {
-                // cria zip apenas uma vez
                 string zipPath = destinationDir + DateTime.Now.ToString("yyyyMMdd_HHmmss") + ".zip";
-                ZipFile.CreateFromDirectory(destinationDir, zipPath);
+                ZipFile.CreateFromDirectory(sourceDir, zipPath);
             }
         }
         catch (Exception ex)
@@ -82,4 +98,3 @@ class GambiarraAutoSave
     }
 
 }
-
