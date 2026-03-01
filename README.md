@@ -1,4 +1,4 @@
-# My mods to Project Zomboid / Meus mods para Project Zomboid
+# My mods to Project Zomboid
 
 ### Technologies
 - Lua
