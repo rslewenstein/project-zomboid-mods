@@ -17,6 +17,8 @@ class GambiarraAutoSave
                 {
                     CopyDirectory("C:\\Users\\" + NameUser() + "\\Zomboid\\Saves", @"C:\\Users\\" + NameUser() + "\\Zomboid\\BKP\\");
                     lastPosition = numLines;
+                    Console.WriteLine("Número de registros de AUTOSAVE: " + numLines);
+                    Console.WriteLine("Backup realizado com sucesso!");
                 }
                 Thread.Sleep(1000); //300000 = 5 minutos
             }
@@ -59,7 +61,6 @@ class GambiarraAutoSave
         {
             if (line.Contains("[AUTOSAVE]"))
             {
-                Console.WriteLine(line);
                 count++;
             }
         }
