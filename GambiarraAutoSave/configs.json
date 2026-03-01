@@ -2,5 +2,6 @@
     "LogPath": "C:\\Users\\%USERNAME%\\Zomboid\\Logs",
     "SavePath": "C:\\Users\\%USERNAME%\\Zomboid\\Saves",
     "BackupPath": "C:\\Users\\%USERNAME%\\Zomboid\\BKP",
-    "ThreadSleepTime": 10000
+    "ThreadSleepTime": 10000,
+    "MaxBackups": 10
 }
