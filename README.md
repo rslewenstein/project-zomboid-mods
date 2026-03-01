@@ -10,7 +10,7 @@ It was created to add a delicious Brazilian sweet treat, called PAÇOCA.
 
 ![Paçoca Mod](PacocaMod/poster.png)
 
-![Paçoca in game](img\pacoca.png)
+![Paçoca in game](img/pacoca.png)
 
 To use, download it and put in C:\Users\<YOUR_USER>\Zomboid\mods (steam)
 
@@ -43,9 +43,9 @@ necessary to config your backup.
 #### How it works?
 - I will need to execute the program (GambiarraAutoSaveMod) then execute Project Zomboid.
 - The program reads the log written by autosave mod in C:\Users\<YOUR_USER>\Zomboid\Logs\*DebugLog.txt
-![logs](img\image.png)
+![logs](img/image.png)
 
 - If has a new entry, than GambiarraAutoSaveMod get the world saved, copy to BKP folder and compress to zip file.
 - The saves are renamed by Date Time.
 
-![bkps](img\bkps-img.png)
+![bkps](img/bkps-img.png)
