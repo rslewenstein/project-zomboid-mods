@@ -8,7 +8,7 @@
 ### PacocaMod
 It was created to add a delicious Brazilian sweet treat, called PAÇOCA.
 
-![Paçoca Mod](PacocaMod/poster.png)
+![Paçoca Mod](img/poster.png)
 
 ![Paçoca in game](img/pacoca.png)
 
