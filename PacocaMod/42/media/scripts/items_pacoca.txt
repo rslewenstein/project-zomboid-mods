@@ -1,0 +1,41 @@
+module Base
+{
+    item Pacoca
+    {
+        Type = Food,
+        DisplayName = Paçoca,
+        Icon = item_pacoca,
+        DisplayCategory = Food,
+        
+        Weight = 0.1,
+        
+        // Nutrição (Importante na B42 para o sistema de peso)
+        Calories = 300,
+        Carbohydrates = 30,
+        Lipids = 18,
+        Proteins = 6,
+
+        // Efeitos de Status
+        HungerChange = -15,
+        ThirstChange = 10,   -- Paçoca dá sede na vida real! (Valores positivos aumentam a sede)
+        UnhappyChange = -15,
+        BoredomChange = -10,
+        StressChange = -10,
+
+        // Durabilidade (B42 melhorou o sistema de validade)
+        DaysFresh = 999,
+        DaysTotallyRotten = 1000,
+        IsShelfStable = TRUE, -- Tag da B42 para itens que não precisam de geladeira
+
+        // Comportamento
+        EatType = Normal,
+        CantBeFrozen = TRUE,
+        BadInMicrowave = TRUE,
+        
+        // Tags de Sistema (Essencial para buscas e receitas automáticas)
+        Tags = Edible;PeanutButter;HighCalorie,
+        
+        // Som ao comer (Melhora a imersão na VM)
+        CustomEatSound = EatingSnack,
+    }
+}
